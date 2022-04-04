@@ -1,0 +1,28 @@
+
+
+CFILES =  xlib.cxx
+cflags = -I.. -I.
+
+OBJECTS = $(CFILES:.cxx=.obj)  
+
+
+all: xlib.lib .symbolic
+
+xlib.lib:  $(OBJECTS) 
+	@if exist xlib.lib @echo success
+
+clean : .SYMBOLIC
+	@if exist *.exe del *.exe
+	@if exist *.err del *.err
+	@if exist *.lib del *.lib
+	@if exist *.obj del *.obj
+	@if exist *.map del *.map
+	@if exist *.bak del *.bak
+
+	
+
+
+.cxx.obj:
+	wpp -ml $(cflags) $[@
+	@wlib xlib.lib -+$^*.obj
+
